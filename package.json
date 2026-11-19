@@ -36,8 +36,8 @@
     "build-config": "npm run build-config-schema && npm run build-config-example",
     "build-config-example": "node schema/build-config-example.mjs",
     "build-config-schema": "node schema/build-config-schema.mjs",
-    "build-declaration": "tsc --allowJs --checkJs --declaration --emitDeclarationOnly --module nodenext --outDir dts --rootDir . --target es2015 lib/exports.mjs lib/exports-async.mjs lib/exports-promise.mjs lib/exports-sync.mjs lib/markdownlint.mjs lib/resolve-module.cjs && node scripts/index.mjs copy dts/lib/exports.d.mts lib/exports.d.mts && node scripts/index.mjs copy dts/lib/exports-async.d.mts lib/exports-async.d.mts && node scripts/index.mjs copy dts/lib/exports-promise.d.mts lib/exports-promise.d.mts && node scripts/index.mjs copy dts/lib/exports-sync.d.mts lib/exports-sync.d.mts && node scripts/index.mjs copy dts/lib/markdownlint.d.mts lib/markdownlint.d.mts && node scripts/index.mjs copy dts/lib/resolve-module.d.cts lib/resolve-module.d.cts && node scripts/index.mjs remove dts",
-    "build-demo": "node scripts/index.mjs copy node_modules/markdown-it/dist/markdown-it.min.js demo/markdown-it.min.js && cd demo && webpack --no-stats",
+    "build-declaration": "tsc --allowJs --checkJs --declaration --emitDeclarationOnly --module nodenext --types node --outDir dts --rootDir . --target es2015 lib/exports.mjs lib/exports-async.mjs lib/exports-promise.mjs lib/exports-sync.mjs lib/markdownlint.mjs lib/resolve-module.cjs && node scripts/index.mjs copy dts/lib/exports.d.mts lib/exports.d.mts && node scripts/index.mjs copy dts/lib/exports-async.d.mts lib/exports-async.d.mts && node scripts/index.mjs copy dts/lib/exports-promise.d.mts lib/exports-promise.d.mts && node scripts/index.mjs copy dts/lib/exports-sync.d.mts lib/exports-sync.d.mts && node scripts/index.mjs copy dts/lib/markdownlint.d.mts lib/markdownlint.d.mts && node scripts/index.mjs copy dts/lib/resolve-module.d.cts lib/resolve-module.d.cts && node scripts/index.mjs remove dts",
+    "build-demo": "node scripts/index.mjs copy node_modules/markdown-it/dist/browser/markdown-it.umd.min.js demo/markdown-it.min.js && cd demo && webpack --no-stats",
     "build-docs": "node doc-build/build-rules.mjs",
     "build-example": "npm install --no-save --ignore-scripts grunt grunt-cli gulp through2",
     "ci": "npm-run-all --continue-on-error --parallel lint serial-config-docs serial-declaration-demo test-cover && git diff --exit-code",
@@ -68,10 +68,10 @@
     "upgrade": "npx --yes npm-check-updates --upgrade"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20.19.0"
   },
   "dependencies": {
-    "markdown-it": "14.1.0",
+    "markdown-it": "15.0.3",
     "micromark": "4.0.1",
     "micromark-core-commonmark": "2.0.2",
     "micromark-extension-directive": "3.0.2",
@@ -106,7 +106,7 @@
     "npm-run-all": "4.1.5",
     "terser-webpack-plugin": "5.3.11",
     "toml": "3.0.0",
-    "typescript": "5.7.3",
+    "typescript": "5.9.3",
     "webpack": "5.97.1",
     "webpack-cli": "6.0.1"
   },

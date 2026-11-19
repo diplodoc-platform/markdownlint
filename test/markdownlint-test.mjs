@@ -1145,6 +1145,35 @@ test("markdownItPluginsMultiple", (t) => new Promise((resolve) => {
   });
 }));
 
+test("markdownItPluginsPreserveFuzzyLinkification", (t) => new Promise((resolve) => {
+  t.plan(3);
+  const links = [];
+  lintAsync({
+    "strings": {
+      "string": "# Heading\n\nexample.com mail@example.com https://user:pass@example.com/path\n"
+    },
+    "customRules": customRules.anyBlockquote,
+    "markdownItPlugins": [
+      [ (md) => md.set({ "linkify": true }) ],
+      [ pluginInline, "check_link_plugin", "link_open", (tokens, index) => {
+        links.unshift(tokens[index].attrGet("href"));
+      } ]
+    ]
+  }, function callback(err, actual) {
+    t.falsy(err);
+    t.deepEqual(actual?.string.map((result) => result.ruleNames), [
+      [ "MD034", "no-bare-urls" ],
+      [ "MD034", "no-bare-urls" ]
+    ]);
+    t.deepEqual(links, [
+      "http://example.com",
+      "mailto:mail@example.com",
+      "https://user:pass@example.com/path"
+    ]);
+    resolve();
+  });
+}));
+
 test("markdownItPluginsNoMarkdownIt", (t) => new Promise((resolve) => {
   t.plan(2);
   lintAsync({
